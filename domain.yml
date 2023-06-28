@@ -1,0 +1,103 @@
+version: '3.1'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- affirm
+- bot_challenge
+- claim_status
+- deny
+- get_a_quote
+- goodbye
+- greet
+- inform
+- mood_great
+- mood_unhappy
+- providing_information
+- stop
+- new_id_card
+entities:
+- insurance_type
+- state
+- number_of_persons
+- claim_id
+- user_id
+slots:
+  claim_id:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: claim_id
+  insurance_type:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: insurance_type
+  number_of_persons:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: number_of_persons
+  state:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: state
+    # user_id:
+    # type: text
+    # initial_value: null
+    # influence_conversation: true
+    # mappings:
+    # - type: from_entity
+    #   entity: user_id
+forms:
+  get_claim_form:
+    required_slots:
+    - claim_id
+  quote_form:
+    required_slots:
+    - insurance_type
+    - number_of_persons
+    - state
+responses:
+  utter_greet:
+  - text: Hey! What can I do for you?
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_claim_id:
+  - text: What is the claimID?
+  utter_notify_active_claim:
+  - text: Thanks! You have selected claim {claim_id}.
+  utter_ask_insurance_type:
+  - text: What type of insurance do you need?
+  utter_ask_number_of_persons:
+  - text: How many people do you want to include on the policy for your quote?
+  utter_ask_state:
+  - text: What state do you live in?
+  utter_ask_user_id:
+  - text: What is your user_id?
+actions:
+- utter_greet
+- utter_notify_active_claim
+- action_check_claim_status
+- utter_ask_claim_id
+- utter_goodbye
+- utter_submit
+- utter_ask_continue
+- action_quote_form
