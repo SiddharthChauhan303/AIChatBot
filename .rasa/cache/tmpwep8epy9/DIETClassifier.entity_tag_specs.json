@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-claim_id",
+      "2": "I-claim_id",
+      "3": "L-claim_id",
+      "4": "U-claim_id",
+      "5": "B-insurance_type",
+      "6": "I-insurance_type",
+      "7": "L-insurance_type",
+      "8": "U-insurance_type",
+      "9": "B-number_of_persons",
+      "10": "I-number_of_persons",
+      "11": "L-number_of_persons",
+      "12": "U-number_of_persons",
+      "13": "B-state",
+      "14": "I-state",
+      "15": "L-state",
+      "16": "U-state",
+      "17": "B-user_id",
+      "18": "I-user_id",
+      "19": "L-user_id",
+      "20": "U-user_id",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-claim_id": 1,
+      "I-claim_id": 2,
+      "L-claim_id": 3,
+      "U-claim_id": 4,
+      "B-insurance_type": 5,
+      "I-insurance_type": 6,
+      "L-insurance_type": 7,
+      "U-insurance_type": 8,
+      "B-number_of_persons": 9,
+      "I-number_of_persons": 10,
+      "L-number_of_persons": 11,
+      "U-number_of_persons": 12,
+      "B-state": 13,
+      "I-state": 14,
+      "L-state": 15,
+      "U-state": 16,
+      "B-user_id": 17,
+      "I-user_id": 18,
+      "L-user_id": 19,
+      "U-user_id": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]

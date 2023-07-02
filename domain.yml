@@ -13,15 +13,15 @@ intents:
 - inform
 - mood_great
 - mood_unhappy
+- new_id_card
 - providing_information
 - stop
-- new_id_card
 entities:
+- user_id
 - insurance_type
 - state
 - number_of_persons
 - claim_id
-- user_id
 slots:
   claim_id:
     type: text
@@ -50,13 +50,31 @@ slots:
     mappings:
     - type: from_entity
       entity: state
-    # user_id:
-    # type: text
-    # initial_value: null
-    # influence_conversation: true
-    # mappings:
-    # - type: from_entity
-    #   entity: user_id
+  first_name:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: name_form
+        requested_slot: first_name
+  last_name:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: name_form
+        requested_slot: last_name
+  user_id:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: user_id
 forms:
   get_claim_form:
     required_slots:
@@ -66,9 +84,24 @@ forms:
     - insurance_type
     - number_of_persons
     - state
+  user_id_form:
+    required_slots:
+    - user_id
+  name_form:
+    required_slots:
+    - first_name
+    - last_name
 responses:
+  utter_ask_first_name:
+  - text: What is your first name?
+  utter_ask_last_name:
+  - text: So {first_name},what is your last name?
+  utter_submit:
+  - text: Thanks, What can I do for you?
+  utter_slots_values:
+  - text: Hi {first_name} {last_name}.
   utter_greet:
-  - text: Hey! What can I do for you?
+  - text: Hey! Please provide your information.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -92,12 +125,19 @@ responses:
   - text: What state do you live in?
   utter_ask_user_id:
   - text: What is your user_id?
+  utter_say_will_send_card:
+  - text: Thank You, I will send card to the address.
+  utter_nlu_fallback:
+  - text: Please write again.Can't get you?
 actions:
+- utter_goodbye
+- utter_slots_values
+- utter_submit
 - utter_greet
+- validate_user_id_form
+- utter_say_will_send_card
 - utter_notify_active_claim
 - action_check_claim_status
 - utter_ask_claim_id
-- utter_goodbye
-- utter_submit
 - utter_ask_continue
 - action_quote_form

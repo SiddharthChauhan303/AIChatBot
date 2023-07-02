@@ -4,15 +4,15 @@ stories:
 
 - story: happy path
   steps:
-  - intent: greet
-  - action: utter_greet
+  # - intent: greet
+  # - action: utter_greet
   - intent: mood_great
   - action: utter_happy
 
 - story: sad path 1
   steps:
-  - intent: greet
-  - action: utter_greet
+  # - intent: greet
+  # - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
@@ -21,8 +21,8 @@ stories:
 
 - story: sad path 2
   steps:
-  - intent: greet
-  - action: utter_greet
+  # - intent: greet
+  # - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
@@ -30,11 +30,11 @@ stories:
   - action: utter_goodbye
 
 
-- story: User wants an insurance quote
-  steps:
-  - intent: get_a_quote
-  - action: quote_form
-  - active_loop: quote_form
+# - story: User wants an insurance quote
+#   steps:
+#   - intent: get_a_quote
+#   - action: quote_form
+#   - active_loop: quote_form
 
   
 # - story: User interrupts the form and doesn't want to continue
@@ -52,70 +52,98 @@ stories:
   # - action: action_deactivate_loop
   # - active_loop: null
 
-- story: check_claim_status
-  steps:
-  - intent: claim_status
-  - action: get_claim_form
-  - active_loop: get_claim_form
+# - story: check_claim_status
+#   steps:
+#   - intent: claim_status
+#   - action: get_claim_form
+#   - active_loop: get_claim_form
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: claim_status
+#   - action: get_claim_form
+#   - active_loop: get_claim_form
+#   - slot_was_set:
+#     - requested_slot: claim_id
+#   - intent: inform
+#     entities:
+#     - claim_id: AB234567
+#     - claim_id: AB234567
+#   - slot_was_set:
+#     - claim_id: AB234567
+#   - action: get_claim_form
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_notify_active_claim
+#   - action: action_check_claim_status
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: claim_status
+#   - action: get_claim_form
+#   - active_loop: get_claim_form
+#   - slot_was_set:
+#     - requested_slot: claim_id
+#   - intent: inform
+#     entities:
+#     - claim_id: AB234567
+#     - claim_id: AB234567
+#   - slot_was_set:
+#     - claim_id: AB234567
+#   - action: get_claim_form
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_notify_active_claim
+#   - action: action_check_claim_status
+
+
+# - story: lost id card, need new id
+#   steps:
+#   - intent: new_id_card
+#   - action: user_id_form
+#   - active_loop: user_id_form
+
+# - story: got user id
+#   steps:
+#   - action: user_id_form
+#   - active_loop: null
+#   - action: 
+#   - slot_was_set:
+#     - requested_slot: null
+
 
 - story: interactive_story_1
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: claim_status
-  - action: get_claim_form
-  - active_loop: get_claim_form
+  - action: name_form
+  - active_loop: name_form
   - slot_was_set:
-    - requested_slot: claim_id
-  - intent: inform
-    entities:
-    - claim_id: AB234567
-    - claim_id: AB234567
+    - requested_slot: first_name
+  - action: name_form
+  - active_loop: name_form
   - slot_was_set:
-    - claim_id: AB234567
-  - action: get_claim_form
+    - requested_slot: first_name
+  - intent: goodbye
   - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: utter_notify_active_claim
-  - action: action_check_claim_status
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: claim_status
-  - action: get_claim_form
-  - active_loop: get_claim_form
+    - first_name: gandu
+  - action: name_form
   - slot_was_set:
-    - requested_slot: claim_id
-  - intent: inform
-    entities:
-    - claim_id: AB234567
-    - claim_id: AB234567
+    - requested_slot: last_name
+  - intent: goodbye
   - slot_was_set:
-    - claim_id: AB234567
-  - action: get_claim_form
+    - last_name: kusal
+  - action: name_form
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: utter_notify_active_claim
-  - action: action_check_claim_status
-
-  - story: lost id card, collecting user_id.
-  steps:
-  - intent: new_id_card
-  - action: user_id_form
-  - active_loop: user_id_form
-
-
-
-
-
-
-
-
-
-
-
-
+  - action: utter_slots_values
+  - action: utter_submit
+  - intent: goodbye
+  - action: utter_goodbye

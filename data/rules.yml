@@ -3,29 +3,76 @@ version: "3.1"
 rules:
 
 - rule: Show greeting and options whenever user says hello or asks for help.
+  condition:
+  - active_loop: null
   steps:
   - intent: greet
   - action: utter_greet
+  - action: name_form
+  - active_loop: name_form
+
+- rule: Submit name form
+  condition:
+  - active_loop: name_form
+  steps:
+  - action: name_form
+  - active_loop: null
+  - action: 
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_slots_values
+  - action: utter_submit
+
+- rule: check_claim_status
+  steps:
+  - intent: claim_status
+  - action: get_claim_form
+  - active_loop: get_claim_form
+
+- rule: nlu_fallback
+  steps:
+  - intent: nlu_fallback
+  - action: utter_nlu_fallback
 
 - rule: Say goodbye anytime the user says goodbye
+  condition:
+  - active_loop: null
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
 - rule: Say 'I am a bot' anytime the user challenges
+  condition:
+  - active_loop: null
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
-
-- rule: Interruption in Claim Status Form
+- rule: User wants an insurance quote
+  steps:
+  - intent: get_a_quote
+  - action: quote_form
+  - active_loop: quote_form
+- rule: Interruption in Quote Status Form
   condition:
   # Condition that form is active.
   - active_loop: get_claim_form
   steps:
   # This unhappy path handles the case of an intent `bot_challenge`.
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - or:
+    - intent: affirm
+    - intent: bot_challenge
+    - intent: claim_status
+    - intent: deny
+    - intent: get_a_quote
+    - intent: inform
+    - intent: mood_great
+    - intent: mood_unhappy
+    - intent: new_id_card
+    - intent: providing_information
+    - intent: stop
+    - intent: nlu_fallback
+  - action: utter_nlu_fallback
   # Return to form after handling the `bot_challenge` intent
   - action: get_claim_form
   - active_loop: get_claim_form
@@ -53,15 +100,19 @@ rules:
     - requested_slot: null
   - action: action_quote_form
 
+# - rule: Submit user_id form
+#   condition:
+#   - active_loop: user_id_form
+#   steps:
+#   - action: user_id_form
+#   - active_loop: null
+#   - action: 
+#   - slot_was_set:
+#     - requested_slot: null
+#   - action: action_check_user_id
 
-- rule: Submit user id form
-  condition:
-  - active_loop: user_id_form
-  steps:
-  - action: user_id_form
-  - active_loop: null
-  - action: 
-  - slot_was_set:
-    - requested_slot: null
+
+
+
   
   

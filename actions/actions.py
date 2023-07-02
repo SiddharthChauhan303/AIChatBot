@@ -5,6 +5,17 @@ from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
+from rasa_sdk.events import (
+    SlotSet,
+    EventType,
+    ActionExecuted,
+    SessionStarted,
+    Restarted,
+    FollowupAction,
+    UserUtteranceReverted,
+    ActionExecutionRejected
+)
+
 CLAIMS = [  ['XX123456', 20201004, 0, 'Final'],
             ['AB234567', 20200312, 5000, 'Pending'],
             ['Z345678', 20201130, 200, 'Submitted'],
@@ -20,7 +31,7 @@ QUOTE_CLAIM=[
 ]
 
 CLIENTS=[
-    [1,"kushal","IIITB","Street No. 17","Bangalore"]
+    ["USER1","kushal","IIITB,Street No. 17","Bangalore","Karnataka","12345"]
 ]
 
 # class ValidateSimplePizzaForm(FormValidationAction):
@@ -90,8 +101,11 @@ class ActionCheckClaimStatus(Action):
                 break                
         if (claim == False):
             dispatcher.utter_message("Please enter the correct Claim-ID")
+            return [SlotSet("claim_id", None)]
         else:
             dispatcher.utter_message(f"The claim status is {claimStatus}")
+            return [SlotSet("claim_id", None)]
+
 
 
 class ActionGetQuote(Action):
@@ -121,3 +135,36 @@ class ActionGetQuote(Action):
         # return [SlotSet(slot, None) for slot in slots]
         return []
 
+class ValidateUserForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_user_id_form"
+    
+    def validate_user_id(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:
+
+        user_id = tracker.get_slot("user_id")
+        name=""
+        street=""
+        city=""
+        state=""
+        pincode=""
+        for i in CLIENTS:
+            if (i[0]== user_id):
+                name = i[1]
+                street = i[2]
+                city = i[3]
+                state = i[4]
+                pincode = i[5]
+        
+        full_address=f"{street},{city},{state},{pincode}"
+
+        dispatcher.utter_message(f"Please confirm the address {name}: {full_address}")
+
+        return {user_id : user_id}
+
+        
