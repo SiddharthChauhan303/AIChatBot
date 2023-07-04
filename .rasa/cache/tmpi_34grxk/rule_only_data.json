@@ -1,0 +1,10 @@
+{
+  "rule_only_slots": [],
+  "rule_only_loops": [
+    "get_claim_form",
+    "name_form",
+    "quote_form",
+    "user_register_form",
+    "file_claim_form"
+  ]
+}

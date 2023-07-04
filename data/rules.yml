@@ -8,8 +8,42 @@ rules:
   steps:
   - intent: greet
   - action: utter_greet
+  - action: action_init
   - action: name_form
   - active_loop: name_form
+
+
+- rule: File a claim
+  steps:
+  - intent: file_claim
+  - action: file_claim_form
+  - active_loop: file_claim_form
+
+- rule: Submit claim form
+  condition:
+  - active_loop: file_claim_form
+  steps:
+  - action: file_claim_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null  
+  - action: action_file_claim
+
+- rule: Register as user
+  steps:
+  - intent: user_register
+  - action: user_register_form
+  - active_loop: user_register_form
+
+- rule: Submit user register form
+  condition:
+  - active_loop: user_register_form
+  steps:
+  - action: user_register_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_register_user
 
 - rule: Submit name form
   condition:
@@ -17,7 +51,6 @@ rules:
   steps:
   - action: name_form
   - active_loop: null
-  - action: 
   - slot_was_set:
     - requested_slot: null
   - action: utter_slots_values
@@ -40,6 +73,7 @@ rules:
   steps:
   - intent: goodbye
   - action: utter_goodbye
+  - action: action_restart
 
 - rule: Say 'I am a bot' anytime the user challenges
   condition:
@@ -53,12 +87,12 @@ rules:
   - intent: get_a_quote
   - action: quote_form
   - active_loop: quote_form
+
+
 - rule: Interruption in Quote Status Form
   condition:
-  # Condition that form is active.
   - active_loop: get_claim_form
   steps:
-  # This unhappy path handles the case of an intent `bot_challenge`.
   - or:
     - intent: affirm
     - intent: bot_challenge
@@ -72,8 +106,8 @@ rules:
     - intent: providing_information
     - intent: stop
     - intent: nlu_fallback
+    - intent: goodbye
   - action: utter_nlu_fallback
-  # Return to form after handling the `bot_challenge` intent
   - action: get_claim_form
   - active_loop: get_claim_form
 
@@ -83,7 +117,6 @@ rules:
   steps:
   - action: get_claim_form
   - active_loop: null
-  - action: 
   - slot_was_set:
     - requested_slot: null
   - action: utter_notify_active_claim
@@ -95,7 +128,7 @@ rules:
   steps:
   - action: quote_form
   - active_loop: null
-  - action: 
+
   - slot_was_set:
     - requested_slot: null
   - action: action_quote_form
@@ -106,7 +139,6 @@ rules:
 #   steps:
 #   - action: user_id_form
 #   - active_loop: null
-#   - action: 
 #   - slot_was_set:
 #     - requested_slot: null
 #   - action: action_check_user_id

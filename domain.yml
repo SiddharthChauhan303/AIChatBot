@@ -15,19 +15,24 @@ intents:
 - mood_unhappy
 - new_id_card
 - providing_information
+- file_claim
 - stop
+- user_register
 entities:
 - user_id
 - insurance_type
 - state
-- number_of_persons
 - claim_id
+- insurance_id
+- bill_amount
 slots:
   claim_id:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
+      conditions:
+      - active_loop: get_claim_form
       entity: claim_id
   insurance_type:
     type: text
@@ -35,20 +40,17 @@ slots:
     influence_conversation: true
     mappings:
     - type: from_entity
+      conditions:
+      - active_loop: quote_form
       entity: insurance_type
-  number_of_persons:
-    type: text
-    initial_value: null
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: number_of_persons
   state:
     type: text
     initial_value: null
     influence_conversation: true
     mappings:
     - type: from_entity
+      conditions:
+      - active_loop: quote_form
       entity: state
   first_name:
     type: text
@@ -68,13 +70,71 @@ slots:
       conditions:
       - active_loop: name_form
         requested_slot: last_name
-  user_id:
+  insurance_id:
     type: text
     initial_value: null
     influence_conversation: true
     mappings:
     - type: from_entity
-      entity: user_id
+      conditions:
+      - active_loop: file_claim_form
+      # requested_slot: insurance_id
+      entity: insurance_id
+  bill_amount:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      conditions:
+      - active_loop: file_claim_form
+        # requested_slot: bill_amount
+      entity: bill_amount
+  location:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_register_form
+        requested_slot: location
+  age:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_register_form
+        requested_slot: age
+  gender:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_register_form
+        requested_slot: gender
+  occupation:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_register_form
+        requested_slot: occupation
+  monthly_income:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: user_register_form
+        requested_slot: monthly_income
 forms:
   get_claim_form:
     required_slots:
@@ -82,7 +142,6 @@ forms:
   quote_form:
     required_slots:
     - insurance_type
-    - number_of_persons
     - state
   user_id_form:
     required_slots:
@@ -91,6 +150,17 @@ forms:
     required_slots:
     - first_name
     - last_name
+  file_claim_form:
+    required_slots:
+    - insurance_id
+    - bill_amount
+  user_register_form:
+    required_slots:
+    - location
+    - age
+    - gender
+    - occupation
+    - monthly_income
 responses:
   utter_ask_first_name:
   - text: What is your first name?
@@ -119,8 +189,6 @@ responses:
   - text: Thanks! You have selected claim {claim_id}.
   utter_ask_insurance_type:
   - text: What type of insurance do you need?
-  utter_ask_number_of_persons:
-  - text: How many people do you want to include on the policy for your quote?
   utter_ask_state:
   - text: What state do you live in?
   utter_ask_user_id:
@@ -129,6 +197,20 @@ responses:
   - text: Thank You, I will send card to the address.
   utter_nlu_fallback:
   - text: Please write again.Can't get you?
+  utter_ask_location:
+  - text: What is your location?
+  utter_ask_age:
+  - text: What is your age?
+  utter_ask_gender:
+  - text: What is your gender?
+  utter_ask_occupation:
+  - text: What is your occupation?
+  utter_ask_monthly_income:
+  - text: What is your monthly income?
+  utter_ask_insurance_id:
+  - text: What is your insurance id?
+  utter_ask_bill_amount:
+  - text: What is your bill amount?
 actions:
 - utter_goodbye
 - utter_slots_values
@@ -141,3 +223,6 @@ actions:
 - utter_ask_claim_id
 - utter_ask_continue
 - action_quote_form
+- action_file_claim
+- action_register_user
+- action_init

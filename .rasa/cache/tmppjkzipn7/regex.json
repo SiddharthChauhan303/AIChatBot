@@ -1,0 +1,6 @@
+[
+  {
+    "name": "claim_id",
+    "pattern": "[a-z]{2}\\d{5}"
+  }
+]

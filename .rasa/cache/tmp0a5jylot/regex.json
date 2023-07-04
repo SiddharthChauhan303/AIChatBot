@@ -1,0 +1,10 @@
+[
+  {
+    "name": "claim_id",
+    "pattern": "[a-z]{2}\\d{5}"
+  },
+  {
+    "name": "insurance_id",
+    "pattern": "[a-z]{3}\\d{4}"
+  }
+]

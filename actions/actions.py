@@ -1,5 +1,7 @@
+import string
+import random
+import pandas as pd
 from typing import Text, List, Any, Dict
-
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
@@ -15,6 +17,50 @@ from rasa_sdk.events import (
     UserUtteranceReverted,
     ActionExecutionRejected
 )
+insurance_ids = [
+    'ABC1234',
+    'XYZ5678',
+    'DEF9012',
+    'GHI3456',
+    'JKL7890',
+    'MNO2345',
+    'PQR6789',
+    'STU0123',
+    'VWX4567',
+    'YZA8901',
+    'BCD2345',
+    'EFG6789',
+    'HIJ0123',
+    'KLM4567',
+    'NOP8901',
+    'QRS2345',
+    'TUV6789', 
+    'WXY0123',
+    'ZAB4567',
+    'CDE8901'
+]
+claim_ids = [
+    'AB12345',
+    'CD67890',
+    'EF23456',
+    'GH78901',
+    'IJ34567',
+    'KL89012',
+    'MN45678',
+    'OP90123',
+    'QR56789',
+    'ST01234',
+    'UV67890',
+    'WX23456',
+    'YZ78901',
+    'AB34567',
+    'CD89012',
+    'EF45678',
+    'GH90123',
+    'IJ56789',
+    'KL01234',
+    'MN67890'
+]
 
 CLAIMS = [  ['XX123456', 20201004, 0, 'Final'],
             ['AB234567', 20200312, 5000, 'Pending'],
@@ -33,50 +79,98 @@ QUOTE_CLAIM=[
 CLIENTS=[
     ["USER1","kushal","IIITB,Street No. 17","Bangalore","Karnataka","12345"]
 ]
-
-# class ValidateSimplePizzaForm(FormValidationAction):
-#     def name(self) -> Text:
-#         return "validate_simple_pizza_form"
-
-#     def validate_pizza_size(
-#         self,
-#         slot_value: Any,
-#         dispatcher: CollectingDispatcher,
-#         tracker: Tracker,
-#         domain: DomainDict,
-#     ) -> Dict[Text, Any]:
-#         """Validate `pizza_size` value."""
-
-#         if slot_value.lower() not in ALLOWED_PIZZA_SIZES:
-#             dispatcher.utter_message(text=f"We only accept pizza sizes: s/m/l/xl.")
-#             return {"pizza_size": None}
-#         dispatcher.utter_message(text=f"OK! You want to have a {slot_value} pizza.")
-#         return {"pizza_size": slot_value}
+class ActionInit(Action):
+    def name(self) -> Text:
+        return "action_init"
     
-#     def validate_pizza_type(
-#         self,
-#         slot_value: Any,
-#         dispatcher: CollectingDispatcher,
-#         tracker: Tracker,
-#         domain: DomainDict,
-#     ) -> Dict[Text, Any]:
-#         """Validate `pizza_type` value."""
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:
+        # amounts = [random.randint(1, 50000) for _ in range(20)]
+        # df=pd.DataFrame(columns=["insurance_ids", "claim_ids"])
+        # for i in range(20):
+        #     new_row = {'insurance_ids': insurance_ids[i], 'claim_ids': claim_ids[i]}
+        #     df.loc[len(df)] = new_row
+        # df.to_csv("data.csv",index=False)
+        # df1=pd.DataFrame(columns=["claim_ids","amounts"])
+        # for i in range(20):
+        #     new_row = {'claim_ids': claim_ids[i], 'amounts':amounts[i]}
+        #     df1.loc[len(df1)] = new_row
+        # df1.to_csv('claims.csv',index=False)
+        return []
 
-#         if slot_value not in ALLOWED_PIZZA_TYPES:
-#             dispatcher.utter_message(text=f"I don't recognize that pizza. We serve {'/'.join(ALLOWED_PIZZA_TYPES)}.")
-#             return {"pizza_type": None}
-#         dispatcher.utter_message(text=f"OK! You want to have a {slot_value} pizza.")
-#         return {"pizza_type": slot_value}
+class ActionFileAClaim(Action):
+    def name(self) -> Text:
+        return "action_file_claim"
+    
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:
+        insurance_id = tracker.get_slot("insurance_id")
+        bill_amount = tracker.get_slot("bill_amount")
+        letters = random.choices(string.ascii_uppercase, k=2)
+        numbers = random.choices(string.digits, k=5)
+        res = ''.join(letters) + ''.join(numbers)
+        new_row = {'insurance_ids': insurance_id, 'claim_ids': res}
+        df=pd.read_csv("data.csv")
+        # df['insurance_ids']=df['insurance_ids'].append(insurance_id)
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+        df.to_csv('data.csv',index=False)
+        new_row1 = {'claim_ids': res, 'amounts': bill_amount}
+        df2=pd.read_csv("claims.csv")
+        df2 = pd.concat([df2, pd.DataFrame([new_row1])], ignore_index=True)
+        df2.to_csv('claims.csv', index=False)
+        dispatcher.utter_message(f"Your claim for Insurance {res} has been submitted. Please note claim ID {res} for future reference.")
+        return []
 
-#     def validate_name(
-#         self,
-#         slot_value: Any,
-#         dispatcher: CollectingDispatcher,
-#         tracker: Tracker,
-#         domain: DomainDict,
-#     ) -> Dict[Text, Any]:
-#         dispatcher.utter_message(text=f"Hello {slot_value} ")
-#         return {"name": slot_value}
+class ValidateUserRegisterForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_user_register_form"
+
+    def validate_gender(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        if slot_value.lower() == 'male' or slot_value.lower() == 'm':
+            return {"gender": 'm'}
+        elif slot_value.lower() == 'female' or slot_value.lower()=='f':
+            return {"gender": 'f'}
+        elif slot_value.lower() == 'other':
+            return {"gender": 'other'}
+        else:
+            dispatcher.utter_message(text=f"Please write the correct gender among m/f/other.")
+            return {"gender": None}
+        
+class ActionRegisterUser(Action):
+    def name(self) -> Text:
+        return "action_register_user"
+    
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:
+        
+        letters = random.choices(string.ascii_uppercase, k=5)
+        numbers = random.choices(string.digits, k=5)
+        res = ''.join(letters) + ''.join(numbers)
+        location = tracker.get_slot("location")
+        age = tracker.get_slot("age")
+        occupation = tracker.get_slot("occupation")
+        monthly_income = tracker.get_slot("monthly_income")
+        gender = tracker.get_slot("gender")
+        user_id=res
+        dispatcher.utter_message(f"Your user Id is {res}.Thank for registering.")
 
 
 class ActionCheckClaimStatus(Action):
@@ -166,5 +260,51 @@ class ValidateUserForm(FormValidationAction):
         dispatcher.utter_message(f"Please confirm the address {name}: {full_address}")
 
         return {user_id : user_id}
+class ActionGoodbye(Action):
+    def name(self) -> Text:
+        return "action_goodbye"
+    
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:
 
+        slots = ["insurance_type","number_of_persons","state",]
+        return [SlotSet(slot, None) for slot in slots]
+        return []
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 

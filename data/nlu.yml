@@ -147,30 +147,28 @@ nlu:
     - i need an insurance
 - intent: inform
   examples: |
-    - [AB234567](claim_id)
     - My claim Id is [AA12054](claim_id)
-    - [AB1234565][{"entity": "claim_id"}, {"entity": "claim_id"}]
-    - [AB234567][{"entity": "claim_id"}, {"entity": "claim_id"}]
+    - claim id [AB1234](claim_id)
     - [heath](insurance_type)
     - [vehicle](insurance_type)
     - [home](insurance_type)
     - [life](insurance_type)
     - i need a [heath](insurance_type)
     - [health](insurance_type)
-    - [5](number_of_persons)
-    - [9](number_of_persons)
-    - [1](number_of_persons)
-    - [2](number_of_persons)
     - I would like insurance for [6](number_of_persons) people.
     - [Telangana](state)
     - I live in [Karnataka](state)
-    - [3](number_of_persons)
     - [Maharastra](state)
     - [Kerala](state)
     - i live in [Tamil Nadu](state)
     - [Andhra Pradesh](state)
     - [USER1](user_id)
     - [USER2](user_id)
+    - [1234](bill_amount)
+    - [23455](bill_amount)
+    - [BCD2345](insurance_id)
+    - [BEF2095](insurance_id)
+    - [OKD2455](insurance_id)
 - intent: claim_status
   examples: |
     - what is the status of my claim?
@@ -181,9 +179,6 @@ nlu:
     - was my claim paid?
     - what do i owe on my claim?
     - i want to check the status of my claim
-    - what is the status of claim [X123456](claim_id)
-    - has claim [YY4567890](claim_id) been paid?
-    - check the status of claim [ZZ643421](claim_id)
     - check the status of a claim
     - I need to check my claim status
     - check claim status
@@ -194,23 +189,43 @@ nlu:
     - what is my claim history
     - get claim status
     - show some claims
-    - check claim id 748536
-    - check the status of claim [NC239062](claim_id)
     - has my claim been submitted?
-    - what is the status of claim [XX123456](claim_id)[XX123456](claim_id)
     - check up on a claim
-    - what is the status of claim [XX123456](claim_id)
-    - what is the status of claim [NC709186](claim_id)[NC709186](claim_id)?
     - what is the status of my recent claim?
-    - check the status of claim [NC339723](claim_id)[NC339723](claim_id)
     - check status of my claim
     - check on my claim status
     - i wnat to know status of my claim
     - i want to know status of my claim
     - i want to kknow claim status
+- intent: file_claim
+  examples: |
+    - file a claim
+    - file claim
+    - new claim file
+    - suffered damage file claim
+    - need money claim
+    - damages covered
+- intent: user_register
+  examples: |
+    - I need to register as a user.
+    - register a user
+    - register
+    - I am a new user
+    - want to register
+
 - synonym: auto
   examples: |
     - car
+    
 - regex: claim_id
   examples: |
-    - [a-z]{1,2}\d{5,7}
+    - [a-z]{2}\d{5}
+
+- regex: insurance_id
+  examples: |
+    - [a-z]{3}\d{4}
+
+- regex: bill_amount
+  examples: |
+    - \d{3,4,5,6,7,8}
+
