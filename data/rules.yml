@@ -1,0 +1,170 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+  - action: action_restart
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Show greeting and options whenever user says hello or asks for help.
+  condition:
+  - active_loop: null
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: get_roll_number_form
+  - active_loop: get_roll_number_form
+
+- rule: Submit roll number form
+  condition:
+  - active_loop: get_roll_number_form
+  steps:
+  - action: get_roll_number_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null  
+  - action: action_get_details
+  - action: utter_submit_roll_number_form
+
+- rule: Ask for any filteration
+  steps:
+  - intent: register_new_courses
+  - action: get_filteration_form
+  - active_loop: get_filteration_form
+
+
+- rule: Domain based filteration form
+  condition:
+  - slot_was_set:
+    - filteration_based: "Domain"
+  steps:
+  - action: get_filter_type_domain_form
+  - active_loop: get_filter_type_domain_form
+
+
+- rule: Submit domain form
+  condition:
+  - active_loop: get_filter_type_domain_form
+  steps:
+  - action: get_filter_type_domain_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null  
+  - action: action_get_filtered_courses_domain
+
+
+- rule:  difficulty filteration form
+  condition:
+  - slot_was_set:
+    - filteration_based: "Difficulty"
+  steps:
+  - action: get_filter_type_difficulty_form
+  - active_loop: get_filter_type_difficulty_form
+
+
+- rule: Submit difficulty form
+  condition:
+  - active_loop: get_filter_type_difficulty_form
+  steps:
+  - action: get_filter_type_difficulty_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null  
+  - action: action_get_filtered_courses_difficulty
+  - action: get_more_filterations_domain_form
+  - active_loop: get_more_filterations_domain_form
+
+
+- rule: More filteration on domain
+  condition:
+  - active_loop: get_more_filterations_domain_form
+  - slot_was_set:
+    - filter_more_domain: "Yes"
+  steps:
+  - action: get_more_filterations_domain_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: get_filter_type_domain_form
+  - active_loop: get_filter_type_domain_form
+
+- rule: Enquire for professor
+  steps:
+  - intent: professor_details
+  - action: get_prof_name_form
+  - active_loop: get_prof_name_form
+
+- rule: Submit professor form
+  condition:
+  - active_loop: get_prof_name_form
+  steps:
+  - action: get_prof_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_get_prof_name1
+  - action: get_expected_prof_name
+  - active_loop: get_expected_prof_name
+
+- rule: Predict prof yes
+  condition:
+  - active_loop: get_expected_prof_name
+  - slot_was_set:
+    - expected_prof_name: "Yes"
+  steps:
+  - action: get_expected_prof_name
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_get_prof_name1
+
+- rule: Predict prof no
+  condition:
+  - active_loop: get_expected_prof_name
+  - slot_was_set:
+    - expected_prof_name: "No"
+  steps:
+  - action: get_expected_prof_name
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_get_prof_name1
+
+
+- rule: About prof details
+  condition:
+  - slot_was_set:
+    - actual_prof_name
+  steps:
+  - intent: professor_details
+  - action: action_get_about_details
+  - action: action_reset_prof_details
+
+- rule: Courses offered by prof
+  condition:
+  - slot_was_set:
+    - actual_prof_name
+  steps:
+  - intent: courses_offered_by_prof
+  - action: action_get_courses_details
+  - action: action_reset_prof_details
+  
+
+- rule: No filteration required
+  condition:
+  - active_loop: get_filteration_form
+  steps:
+  - action: action_get_all_courses
+  
+
+- rule: Listening to the user
+  steps:
+  - action: action_reset_prof_details
+  - action: action_listen

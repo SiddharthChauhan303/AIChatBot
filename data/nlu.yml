@@ -1,0 +1,194 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - heyy
+    - heyyy
+    - mk
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: register_new_courses
+  examples: |
+    - "How can I register for courses in the college?"
+    - "I want to know the process of course registration."
+    - "Could you help me with course registration?"
+    - "Where do I sign up for college courses?"
+    - "What's the procedure to register for a course?"
+    - I want to register for courses.
+    - I need to check courses for next semester.
+    - I need to check courses for next sem.
+    - What courses can I take for next semester.
+    - next semester courses.
+    - i need to register for new courses
+    - i need to register new courses
+    - i need to register for courses
+- intent: inform
+  examples: |
+    - My roll number is [IMT2021062](roll_number)
+    - [MS2021072](roll_number)
+    - [PHD2018099](roll_number)
+    - roll number (IMT2020091)(roll_number)
+    - My roll number is [MT2021062](roll_number)
+    - [MT2019902](roll_number)
+    - [PH2017098](roll_number)
+    - [MT2021087](roll_number)
+    - [IMT2021062](roll_number)
+    - [IMT2021522](roll_number)
+    - [IMT2021043](roll_number)
+    - [IMT2021100](roll_number)
+    - [imt2021062]{"entity": "roll_number", "value": "IMT2021062"}
+    - [IMT2021062](roll_number)
+- intent: no_filters_required
+  examples: |
+    - I need no filters.
+    - No filters.
+    - All courses
+    - Show me all courses.
+    - I want to see every available course.
+    - No filters, just show me all the courses.
+    - Display a complete list of courses.
+    - I don't have any specific preferences for courses.
+    - I'm open to any course suggestions.
+    - Just give me a list of all available courses.
+    - I don't need any filters for courses.
+    - Show me the entire course catalog.
+    - List all the courses offered.
+    - What are all the available courses?
+    - I'm interested in exploring all courses.
+    - Give me an overview of all courses.
+    - Show me courses without any specific criteria.
+    - Can you provide information on courses without restrictions?
+    - I'm looking for courses with no particular requirements.
+- intent: filteration_required_based_on_domain
+  examples: |
+    - Show me courses related to computer science.
+    - I'm interested in computer science courses.
+    - Can you provide me with computer science course options?
+    - I want to explore courses in the field of computer science.
+    - Are there any courses specific to computer science?
+    - Show me courses relevant to the computer science domain.
+    - I'm looking for computer science-related courses.
+    - Are there any filters available for domain-specific courses?
+    - Give me a list of courses in the computer science domain.
+    - Which courses are available for computer science students?
+    - I need some filters to choose for courses
+    - domain based filteration
+    - domain
+- intent: filteration_required_based_on_difficulty
+  examples: |
+    - Show me beginner-level courses.
+    - I'm interested in courses suitable for beginners.
+    - Can you recommend courses with easy difficulty?
+    - Show me courses that are not too challenging.
+    - I want to find courses for advanced learners.
+    - Are there any intermediate-level courses available?
+    - Give me a list of courses categorized by difficulty.
+    - Which courses are suitable for advanced learners?
+    - I need courses with a higher level of difficulty.
+    - Are there any filters for course difficulty?
+    - Show me courses that are suitable for all skill levels.
+    - I need filtering on bases of difficulty
+    - difficulty based filtering
+    - difficulty
+- intent: professor_details
+  examples: |
+    - Give professor details.
+    - professor details
+    - I want to know professor details
+    - prof details
+    - prof information
+    - proff details
+    - proff
+- intent: courses_offered_by_prof
+  examples: |
+    - what courses does the prof teach?
+    - what courses does the prof offer?
+    - courses taught
+    - courses offered
+- intent: nlu_fallback
+  examples: |
+    - rc
+- synonym: IMT2021062
+  examples: |
+    - imt2021062
+- regex: roll_number
+  examples: |
+    - r"^(imt|Imt|ms|ph|dt|IMT|MS|PH|MT|DT)\d+$"

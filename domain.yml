@@ -1,0 +1,251 @@
+version: '3.1'
+intents:
+- about_prof_details
+- affirm
+- bot_challenge
+- courses_offered_by_prof
+- deny
+- filteration_required_based_on_difficulty
+- filteration_required_based_on_domain
+- goodbye
+- greet
+- inform
+- mood_great
+- mood_unhappy
+- nlu_fallback
+- no_filters_required
+- professor_details
+- register_new_courses
+entities:
+- roll_number
+- expected_prof_name
+- filter_type_domain
+- filter_type_difficulty
+- program
+- filter_more_difficulties
+- filter_more_domain
+- actual_prof_name
+- name
+- prof_details
+- filteration_based
+forms:
+  get_filteration_form:
+    required_slots:
+    - filteration_based
+  get_prof_name_form:
+    required_slots:
+    - prof_name
+  get_roll_number_form:
+    required_slots:
+    - roll_number
+  get_filter_type_domain_form:
+    required_slots:
+    - filter_type_domain
+  get_filter_type_difficulty_form:
+    required_slots:
+    - filter_type_difficulty
+  get_more_filterations_difficulty_form:
+    required_slots:
+    - filter_more_difficulties
+  get_more_filterations_domain_form:
+    required_slots:
+    - filter_more_domain
+  get_expected_prof_name:
+    required_slots:
+    - expected_prof_name
+slots:
+  prof_name:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: get_prof_name_form
+        requested_slot: prof_name
+  actual_prof_name:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: actual_prof_name
+  program:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: program
+  roll_number:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      conditions:
+      - active_loop: get_roll_number_form
+      entity: roll_number
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: name
+  filter_type_domain:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Artificial Intelligence
+    - Cyber Security
+    - VLSI
+    - Computer Networking
+    - TSCD
+    mappings:
+    - type: from_entity
+      entity: filter_type_domain
+  filter_type_difficulty:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Beginner
+    - Intermediate
+    - Expert
+    mappings:
+    - type: from_entity
+      entity: filter_type_difficulty
+  filter_more_domain:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Yes
+    - No
+    mappings:
+    - type: from_entity
+      entity: filter_more_domain
+  filter_more_difficulties:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Yes
+    - No
+    mappings:
+    - type: from_entity
+      entity: filter_more_difficulties
+  expected_prof_name:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Yes
+    - No
+    mappings:
+    - type: from_entity
+      entity: expected_prof_name
+  prof_details:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - About
+    - Courses offered
+    mappings:
+    - type: from_entity
+      entity: prof_details
+  filteration_based:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - No 
+    - Domain 
+    - Difficulty 
+    mappings:
+    - type: from_entity
+      entity: filteration_based
+responses:
+  utter_what_do_you_want:
+  - text: What can I do for you {name}?
+  utter_submit_roll_number_form:
+  - text: Hi {name}, What can I do for you?
+  utter_ask_roll_number:
+  - text: What is your roll number?
+  utter_greet:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_ask_filteration_based:
+  - buttons:
+    - payload: /inform{{"filteration_based":"No"}}
+      title: No filteration
+    - payload: /inform{{"filteration_based":"Domain"}}
+      title: Domain based
+    - payload: /inform{{"filteration_based":"Difficulty"}}
+      title: Difficulty based
+    text: Do you want any kind of filtaration?
+  utter_ask_filter_type_domain:
+  - buttons:
+    - payload: /inform{{"filter_type_domain":"Artificial Intelligence"}}
+      title: AI and ML
+    - payload: /inform{{"filter_type_domain":"VLSI"}}
+      title: VLSI
+    - payload: /inform{{"filter_type_domain":"Computer Networking"}}
+      title: Computer Networking
+    - payload: /inform{{"filter_type_domain":"Cyber Security"}}
+      title: Cyber Security
+    - payload: /inform{{"filter_type_domain":"TSCD"}}
+      title: TSCD
+    text: Select any domain?
+  utter_ask_filter_type_difficulty:
+  - buttons:
+    - payload: /inform{{"filter_type_difficulty":"Beginner"}}
+      title: Beginner
+    - payload: /inform{{"filter_type_difficulty":"Intermediate"}}
+      title: Intermediate
+    - payload: /inform{{"filter_type_difficulty":"Expert"}}
+      title: Expert
+    text: Select any level of difficulty?
+  utter_ask_filter_more_domain:
+  - buttons:
+    - payload: /inform{{"filter_more_domain":"Yes"}}
+      title: yes
+    - payload: /inform{{"filter_more_domain":"No"}}
+      title: no
+    text: Do you want to filter more on domain?
+  utter_ask_expected_prof_name:
+  - buttons:
+    - payload: /inform{{"expected_prof_name":"Yes"}}
+      title: yes
+    - payload: /inform{{"expected_prof_name":"No"}}
+      title: no
+    text: Select any one?
+  utter_ask_prof_name:
+  - text: Which prof information do you want?
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+actions:
+- utter_submit_roll_number_form
+- action_reset_prof_details
+- action_get_details
+- utter_greet
+- action_get_courses_details
+- action_get_prof_name1
+- action_get_about_details
+- utter_goodbye
+- action_get_filtered_courses_domain
+- utter_register_new_courses
+- action_get_filtered_courses_difficulty
+- action_get_all_courses
+- action_remove_prof_name
