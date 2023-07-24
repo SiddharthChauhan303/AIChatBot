@@ -1,0 +1,20 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-roll_number",
+      "2": "I-roll_number",
+      "3": "L-roll_number",
+      "4": "U-roll_number",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-roll_number": 1,
+      "I-roll_number": 2,
+      "L-roll_number": 3,
+      "U-roll_number": 4,
+      "O": 0
+    },
+    "num_tags": 5
+  }
+]

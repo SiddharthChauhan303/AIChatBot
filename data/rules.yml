@@ -36,15 +36,12 @@ rules:
 - rule: Ask for any filteration
   steps:
   - intent: register_new_courses
-  - action: get_filteration_form
-  - active_loop: get_filteration_form
+  - action: utter_filterations
 
 
 - rule: Domain based filteration form
-  condition:
-  - slot_was_set:
-    - filteration_based: "Domain"
   steps:
+  - intent: filteration_required_based_on_domain
   - action: get_filter_type_domain_form
   - active_loop: get_filter_type_domain_form
 
@@ -52,19 +49,37 @@ rules:
 - rule: Submit domain form
   condition:
   - active_loop: get_filter_type_domain_form
+  - slot_was_set:
+    - filter_type_domain: None
   steps:
   - action: get_filter_type_domain_form
   - active_loop: null
   - slot_was_set:
     - requested_slot: null  
   - action: action_get_filtered_courses_domain
+  - action: action_check_difficulty
+  - action: get_more_filterations_difficulty_form
+  - active_loop: get_more_filterations_difficulty_form
+
+
+- rule: More filteration on difficulty
+  condition:
+  - active_loop: get_more_filterations_difficulty_form
+  - slot_was_set:
+    - filter_more_difficulty: "Yes"
+  steps:
+  - action: get_more_filterations_difficulty_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: get_more_filterations_difficulty_form
+  - action: get_filter_type_difficulty_form
+  - active_loop: get_filter_type_difficulty_form
 
 
 - rule:  difficulty filteration form
-  condition:
-  - slot_was_set:
-    - filteration_based: "Difficulty"
   steps:
+  - intent: filteration_required_based_on_difficulty
   - action: get_filter_type_difficulty_form
   - active_loop: get_filter_type_difficulty_form
 
@@ -72,15 +87,17 @@ rules:
 - rule: Submit difficulty form
   condition:
   - active_loop: get_filter_type_difficulty_form
+  - slot_was_set:
+    - filter_type_domain: null
   steps:
   - action: get_filter_type_difficulty_form
   - active_loop: null
   - slot_was_set:
     - requested_slot: null  
   - action: action_get_filtered_courses_difficulty
+  - action: action_check_domain
   - action: get_more_filterations_domain_form
   - active_loop: get_more_filterations_domain_form
-
 
 - rule: More filteration on domain
   condition:
@@ -158,9 +175,8 @@ rules:
   
 
 - rule: No filteration required
-  condition:
-  - active_loop: get_filteration_form
   steps:
+  - intent: no_filters_required
   - action: action_get_all_courses
   
 

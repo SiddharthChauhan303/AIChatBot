@@ -37,6 +37,8 @@
 # Faculty_name=data1["Faculty Name"]
 # Faculty_code=data1["Faculty"]
 # Course_code=data1["Course Code"]
+# diff=data1["Difficulty"]
+# prog=data1["Program"]
 # Profs=data2["Faculty"]
 # Prof_code=data2["Faculty Codes"]
 # about=data2["About"]
@@ -45,8 +47,8 @@
 #     # insert(names[i],roll[i])
 
 # for i in range(len(Course_name)):
-#     query='INSERT into course_details values("'+str(Course_name[i])+'","'+str(Specialization[i])+'","'+str(Pre_requisites[i])+'","'+str(Faculty_name[i])+'","'+str(Faculty_code[i])+'","'+str(Course_code[i])+'")'
-#     # dbc.ExecuteQuery(query)
+#     query='INSERT into course_details values("'+str(Course_name[i])+'","'+str(Course_code[i])+'","'+str(Faculty_name[i])+'","'+str(Faculty_code[i])+'","'+str(Specialization[i])+'","'+str(diff[i])+'","'+str(prog[i])+'","'+str(Pre_requisites[i])+'")'
+#     dbc.ExecuteQuery(query)
 
 # for i in range(len(Profs)):
 #      dbc.ExecuteQuery('INSERT into professor_details values("'+str(Profs[i])+'","'+str(Prof_code[i])+'","'+str(about[i])+'")')

@@ -100,6 +100,8 @@ nlu:
     - i need to register for new courses
     - i need to register new courses
     - i need to register for courses
+    - new courses
+    - Courses registration
 - intent: inform
   examples: |
     - My roll number is [IMT2021062](roll_number)
@@ -168,6 +170,7 @@ nlu:
     - I need filtering on bases of difficulty
     - difficulty based filtering
     - difficulty
+    - difficulty based
 - intent: professor_details
   examples: |
     - Give professor details.

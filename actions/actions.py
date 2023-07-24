@@ -87,6 +87,19 @@ class ActionGetAllCourses(Action):
     ) -> List[Dict]:
         program=tracker.get_slot("program")
         dispatcher.utter_message(f"These are all the courses avaliable for your {program}")
+        courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details  ")
+        course_name=[]
+        course_code=[]
+        faculty_name=[]
+        faculty_code=[]
+        for i in range (len(courses)):
+            course_name.append(courses[i][0])
+            course_code.append(courses[i][1]) 
+            faculty_name.append(courses[i][2])
+            faculty_code.append(courses[i][3]) ##duplicate courses
+        for i in range (len(courses)):
+            dispatcher.utter_message(f"{i+1}. {course_name[i]}  -  {course_code[i]}, Taught by Prof {faculty_name[i]}, ({faculty_code[i]})")
+
         return []
 
 
@@ -102,7 +115,32 @@ class ActionGetFilteredCoursesBasedOnDomain(Action):
     ) -> List[Dict]:
         program=tracker.get_slot("program")
         filter_type_domain=tracker.get_slot("filter_type_domain")
+        filter_type_difficulty=tracker.get_slot("filter_type_difficulty")
         dispatcher.utter_message(f"These are all the courses filtered based on {filter_type_domain} avaliable for your {program}")
+        if(filter_type_difficulty=="Beginner"):
+            diff=1
+        elif (filter_type_difficulty=="Intermediate"):
+            diff=2
+        elif(filter_type_difficulty=="Expert"):
+            diff=3
+        else:
+            diff=0
+        if filter_type_difficulty:
+            courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where specialization='{filter_type_domain}'and difficulty='{diff}' ")
+        else:
+            courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where specialization='{filter_type_domain}' ")
+        course_name=[]
+        course_code=[]
+        faculty_name=[]
+        faculty_code=[]
+        for i in range (len(courses)):
+            course_name.append(courses[i][0])
+            course_code.append(courses[i][1]) 
+            faculty_name.append(courses[i][2])
+            faculty_code.append(courses[i][3]) ##duplicate courses
+        for i in range (len(courses)):
+            dispatcher.utter_message(f"{i+1}. {course_name[i]}  -  {course_code[i]}, Taught by Prof {faculty_name[i]}, ({faculty_code[i]})")
+
         return []
 
 class ActionGetFilteredCoursesBasedOnDifficulty(Action):
@@ -117,23 +155,55 @@ class ActionGetFilteredCoursesBasedOnDifficulty(Action):
     ) -> List[Dict]:
         program=tracker.get_slot("program")
         filter_type_difficulty=tracker.get_slot("filter_type_difficulty")
+        prog=tracker.get_slot("program")
+        domain=tracker.get_slot("filter_type_domain")
+        if(filter_type_difficulty=="Beginner"):
+            diff=1
+        elif (filter_type_difficulty=="Intermediate"):
+            diff=2
+        elif(filter_type_difficulty=="Expert"):
+            diff=3
+        else:
+            diff=0
+        if(prog=="IMtech"):
+            prog=1
+        elif (prog=="Mtech"):
+            prog=2
+        elif(prog=="DT"):
+            prog=3
+        else:
+            prog=0
         dispatcher.utter_message(f"These are all the courses filtered based on {filter_type_difficulty} avaliable for your {program}")
+        if domain:
+            if (prog==0):
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where specialization='{domain}'")
+            else:
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and specialization='{domain}' and program ='{prog}' or program='3' ")
+        else:
+            if (prog==0):
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details")
+            else:
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program ='{prog}' or program='3' ")
+        
+            if (prog==0):
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details")
+            else:
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program ='{prog}' or program='3' ")
+        course_name=[]
+        course_code=[]
+        faculty_name=[]
+        faculty_code=[]
+        for i in range (len(courses)):
+            course_name.append(courses[i][0])
+            course_code.append(courses[i][1]) 
+            faculty_name.append(courses[i][2])
+            faculty_code.append(courses[i][3]) ##duplicate courses
+        for i in range (len(courses)):
+            dispatcher.utter_message(f"{i+1}. [Difficulty {filter_type_difficulty}]-{course_name[i]}  -  {course_code[i]}, Taught by Prof {faculty_name[i]}, ({faculty_code[i]})")
+
+        # return [SlotSet("filter_type_domain",None)]
         return []
 
-class ActionFilteMoreOnDomain(Action):
-    def name(self) -> Text:
-        return "action_filter_more_domain"
-    
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict]:
-        program=tracker.get_slot("program")
-        filter_type_difficulty=tracker.get_slot("filter_type_difficulty")
-        filter_more=tracker.get_slot("filter_more_domain")
-        return []
 
 
         
@@ -232,7 +302,7 @@ class ActionGetCourseDetails(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict]:   
         prof=tracker.get_slot("actual_prof_name")
-        courses=dbc.ReturnQueryAllCourses(f"SELECT coursename,course_code from course_details where faculty_name='{prof}' ")
+        courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code from course_details where faculty_name='{prof}' ")
         course_name=[]
         course_code=[]
         for i in range (len(courses)):
@@ -242,3 +312,36 @@ class ActionGetCourseDetails(Action):
             dispatcher.utter_message(f"{course_name[i]}  -  {course_code[i]}")
         return []
 
+
+class CustomActionCheckDomain(Action):
+    def name(self) -> Text:
+        return "action_check_domain"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:   
+        specialization=tracker.get_slot("filter_type_domain")
+        if specialization:
+            return [FollowupAction("action_listen")]
+        else:
+            return []
+
+
+class CustomActionCheckDomain(Action):
+    def name(self) -> Text:
+        return "action_check_difficulty"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:   
+        difficulty_type=tracker.get_slot("filter_type_difficulty")
+        if difficulty_type:
+            return [FollowupAction("action_listen")]
+        else:
+            return []

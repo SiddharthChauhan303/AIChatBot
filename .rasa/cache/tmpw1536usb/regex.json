@@ -1,0 +1,6 @@
+[
+  {
+    "name": "roll_number",
+    "pattern": "r\"^(IMT|MS|PH|MT|DT)\\d+$\""
+  }
+]

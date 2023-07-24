@@ -1,135 +1,514 @@
-version: "3.1"
+# version: "3.1"
 
-stories:
-
-
+# stories:
 
 
 
 
 
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - action: get_roll_number_form
-#   - active_loop: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: roll_number
-#   - intent: inform
-#     entities:
-#     - roll_number: IMT2021522
-#   - slot_was_set:
-#     - roll_number: IMT2021522
-#   - action: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_details
-#   - slot_was_set:
-#     - program: IMtech
-#   - action: utter_submit_roll_number_form
-#   - intent: register_new_courses
-#   - action: utter_register_new_courses
-#   - intent: filteration_required_based_on_domain
-#   - action: get_filter_type_domain_form
-#   - active_loop: get_filter_type_domain_form
-#   - slot_was_set:
-#     - requested_slot: filter_type_domain
-#   - intent: inform
-#     entities:
-#     - filter_type_domain: Artificial Intelligence
-#   - slot_was_set:
-#     - filter_type_domain: Artificial Intelligence
-#   - action: get_filter_type_domain_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_filtered_courses_domain
-#   - intent: goodbye
-#   - action: utter_goodbye
 
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - action: get_roll_number_form
-#   - active_loop: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: roll_number
-#   - intent: inform
-#     entities:
-#     - roll_number: IMT2021043
-#   - slot_was_set:
-#     - roll_number: IMT2021043
-#   - action: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_details
-#   - slot_was_set:
-#     - program: IMtech
-#   - action: utter_submit_roll_number_form
-#   - intent: register_new_courses
-#   - action: utter_register_new_courses
-#   - intent: filteration_required_based_on_difficulty
-#   - action: get_filter_type_difficulty_form
-#   - active_loop: get_filter_type_difficulty_form
-#   - slot_was_set:
-#     - requested_slot: filter_type_difficulty
-#   - intent: inform
-#     entities:
-#     - filter_type_difficulty: Beginner
-#   - slot_was_set:
-#     - filter_type_difficulty: Beginner
-#   - action: get_filter_type_difficulty_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_filtered_courses_difficulty
-#   - intent: goodbye
-#   - action: utter_goodbye
 
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - action: get_roll_number_form
-#   - active_loop: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: roll_number
-#   - intent: inform
-#     entities:
-#     - roll_number: IMT2021100
-#   - slot_was_set:
-#     - roll_number: IMT2021100
-#   - action: get_roll_number_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_details
-#   - slot_was_set:
-#     - program: IMtech
-#   - action: utter_submit_roll_number_form
-#   - intent: register_new_courses
-#   - action: utter_register_new_courses
-#   - intent: affirm
-#   - intent: filteration_required_based_on_domain
-#   - action: get_filter_type_domain_form
-#   - active_loop: get_filter_type_domain_form
-#   - slot_was_set:
-#     - requested_slot: filter_type_domain
-#   - intent: inform
-#     entities:
-#     - filter_type_domain: Artificial Intelligence
-#   - slot_was_set:
-#     - filter_type_domain: Artificial Intelligence
-#   - action: get_filter_type_domain_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_filtered_courses_domain
-#   - intent: goodbye
+# # # - story: interactive_story_1
+# # #   steps:
+# # #   - intent: greet
+# # #   - action: utter_greet
+# # #   - action: get_roll_number_form
+# # #   - active_loop: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: roll_number
+# # #   - intent: inform
+# # #     entities:
+# # #     - roll_number: IMT2021522
+# # #   - slot_was_set:
+# # #     - roll_number: IMT2021522
+# # #   - action: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_details
+# # #   - slot_was_set:
+# # #     - program: IMtech
+# # #   - action: utter_submit_roll_number_form
+# # #   - intent: register_new_courses
+# # #   - action: utter_register_new_courses
+# # #   - intent: filteration_required_based_on_domain
+# # #   - action: get_filter_type_domain_form
+# # #   - active_loop: get_filter_type_domain_form
+# # #   - slot_was_set:
+# # #     - requested_slot: filter_type_domain
+# # #   - intent: inform
+# # #     entities:
+# # #     - filter_type_domain: Artificial Intelligence
+# # #   - slot_was_set:
+# # #     - filter_type_domain: Artificial Intelligence
+# # #   - action: get_filter_type_domain_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_filtered_courses_domain
+# # #   - intent: goodbye
+# # #   - action: utter_goodbye
+
+# # # - story: interactive_story_1
+# # #   steps:
+# # #   - intent: greet
+# # #   - action: utter_greet
+# # #   - action: get_roll_number_form
+# # #   - active_loop: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: roll_number
+# # #   - intent: inform
+# # #     entities:
+# # #     - roll_number: IMT2021043
+# # #   - slot_was_set:
+# # #     - roll_number: IMT2021043
+# # #   - action: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_details
+# # #   - slot_was_set:
+# # #     - program: IMtech
+# # #   - action: utter_submit_roll_number_form
+# # #   - intent: register_new_courses
+# # #   - action: utter_register_new_courses
+# # #   - intent: filteration_required_based_on_difficulty
+# # #   - action: get_filter_type_difficulty_form
+# # #   - active_loop: get_filter_type_difficulty_form
+# # #   - slot_was_set:
+# # #     - requested_slot: filter_type_difficulty
+# # #   - intent: inform
+# # #     entities:
+# # #     - filter_type_difficulty: Beginner
+# # #   - slot_was_set:
+# # #     - filter_type_difficulty: Beginner
+# # #   - action: get_filter_type_difficulty_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_filtered_courses_difficulty
+# # #   - intent: goodbye
+# # #   - action: utter_goodbye
+
+# # # - story: interactive_story_1
+# # #   steps:
+# # #   - intent: greet
+# # #   - action: utter_greet
+# # #   - action: get_roll_number_form
+# # #   - active_loop: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: roll_number
+# # #   - intent: inform
+# # #     entities:
+# # #     - roll_number: IMT2021100
+# # #   - slot_was_set:
+# # #     - roll_number: IMT2021100
+# # #   - action: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_details
+# # #   - slot_was_set:
+# # #     - program: IMtech
+# # #   - action: utter_submit_roll_number_form
+# # #   - intent: register_new_courses
+# # #   - action: utter_register_new_courses
+# # #   - intent: affirm
+# # #   - intent: filteration_required_based_on_domain
+# # #   - action: get_filter_type_domain_form
+# # #   - active_loop: get_filter_type_domain_form
+# # #   - slot_was_set:
+# # #     - requested_slot: filter_type_domain
+# # #   - intent: inform
+# # #     entities:
+# # #     - filter_type_domain: Artificial Intelligence
+# # #   - slot_was_set:
+# # #     - filter_type_domain: Artificial Intelligence
+# # #   - action: get_filter_type_domain_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_filtered_courses_domain
+# # #   - intent: goodbye
+
+# # # - story: interactive_story_1
+# # #   steps:
+# # #   - intent: greet
+# # #   - action: utter_greet
+# # #   - action: get_roll_number_form
+# # #   - active_loop: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: roll_number
+# # #   - intent: inform
+# # #     entities:
+# # #     - roll_number: IMT2021062
+# # #   - slot_was_set:
+# # #     - roll_number: IMT2021062
+# # #   - action: get_roll_number_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_details
+# # #   - slot_was_set:
+# # #     - program: IMtech
+# # #   - slot_was_set:
+# # #     - name: Kushal Partani
+# # #   - action: utter_submit_roll_number_form
+# # #   - intent: professor_details
+# # #   - action: get_prof_name_form
+# # #   - active_loop: get_prof_name_form
+# # #   - slot_was_set:
+# # #     - requested_slot: prof_name
+# # #   - intent: nlu_fallback
+# # #   - slot_was_set:
+# # #     - prof_name: rc
+# # #   - action: get_prof_name_form
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_prof_name1
+# # #   - action: get_expected_prof_name
+# # #   - active_loop: get_expected_prof_name
+# # #   - slot_was_set:
+# # #     - requested_slot: expected_prof_name
+# # #   - intent: inform
+# # #     entities:
+# # #     - expected_prof_name: Yes
+# # #   - slot_was_set:
+# # #     - expected_prof_name: Yes
+# # #   - action: get_expected_prof_name
+# # #   - slot_was_set:
+# # #     - requested_slot: null
+# # #   - active_loop: null
+# # #   - action: action_get_prof_name1
+# # #   - slot_was_set:
+# # #     - actual_prof_name: Chandrashekar Ramanathan
+# # #   - slot_was_set:
+# # #     - expected_prof_name: null
+# # #   - intent: professor_details
+# # #   - action: action_get_about_details
+
+# # - story: interactive_story_1
+# #   steps:
+# #   - intent: greet
+# #   - action: utter_greet
+# #   - action: get_roll_number_form
+# #   - active_loop: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: roll_number
+# #   - intent: inform
+# #     entities:
+# #     - roll_number: IMT2021062
+# #   - slot_was_set:
+# #     - roll_number: IMT2021062
+# #   - action: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_details
+# #   - slot_was_set:
+# #     - program: IMtech
+# #   - slot_was_set:
+# #     - name: Kushal Partani
+# #   - action: utter_submit_roll_number_form
+# #   - intent: professor_details
+# #   - action: get_prof_name_form
+# #   - active_loop: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: prof_name
+# #   - intent: greet
+# #   - slot_was_set:
+# #     - prof_name: mk
+# #   - action: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - action: get_expected_prof_name
+# #   - active_loop: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: expected_prof_name
+# #   - intent: inform
+# #     entities:
+# #     - expected_prof_name: Yes
+# #   - slot_was_set:
+# #     - expected_prof_name: Yes
+# #   - action: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Manisha Kulkarni
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: professor_details
+# #   - action: action_get_about_details
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+# #   - action: action_default_fallback
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Manisha Kulkarni
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: professor_details
+# #   - action: action_get_about_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+# #   - action: action_default_fallback
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Manisha Kulkarni
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: professor_details
+# #   - action: action_get_about_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+# #   - intent: professor_details
+# #   - action: get_prof_name_form
+# #   - active_loop: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: prof_name
+# #   - intent: nlu_fallback
+# #   - slot_was_set:
+# #     - prof_name: rc
+# #   - action: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - action: get_expected_prof_name
+# #   - active_loop: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: expected_prof_name
+# #   - intent: inform
+# #     entities:
+# #     - expected_prof_name: Yes
+# #   - slot_was_set:
+# #     - expected_prof_name: Yes
+# #   - action: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Chandrashekar Ramanathan
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: professor_details
+# #   - action: action_get_about_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+# #   - intent: goodbye
+# #   - action: utter_goodbye
+# #   - action: action_restart
+
+# # - story: interactive_story_1
+# #   steps:
+# #   - intent: greet
+# #   - action: utter_greet
+# #   - action: get_roll_number_form
+# #   - active_loop: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: roll_number
+# #   - intent: inform
+# #     entities:
+# #     - roll_number: IMT2021062
+# #   - slot_was_set:
+# #     - roll_number: IMT2021062
+# #   - action: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_details
+# #   - slot_was_set:
+# #     - program: IMtech
+# #   - slot_was_set:
+# #     - name: Kushal Partani
+# #   - action: utter_submit_roll_number_form
+# #   - intent: professor_details
+# #   - action: get_prof_name_form
+# #   - active_loop: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: prof_name
+# #   - intent: greet
+# #   - slot_was_set:
+# #     - prof_name: mk
+# #   - action: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - action: get_expected_prof_name
+# #   - active_loop: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: expected_prof_name
+# #   - intent: inform
+# #     entities:
+# #     - expected_prof_name: Yes
+# #   - slot_was_set:
+# #     - expected_prof_name: Yes
+# #   - action: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Manisha Kulkarni
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: courses_offered_by_prof
+# #   - action: action_get_courses_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+# #   - intent: professor_details
+# #   - action: get_prof_name_form
+# #   - active_loop: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: prof_name
+# #   - intent: nlu_fallback
+# #   - slot_was_set:
+# #     - prof_name: rc
+# #   - action: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - action: get_expected_prof_name
+# #   - active_loop: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: expected_prof_name
+# #   - intent: inform
+# #     entities:
+# #     - expected_prof_name: Yes
+# #   - slot_was_set:
+# #     - expected_prof_name: Yes
+# #   - action: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Chandrashekar Ramanathan
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: professor_details
+# #   - action: action_get_about_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+
+# # - story: interactive_story_1
+# #   steps:
+# #   - intent: greet
+# #   - action: utter_greet
+# #   - action: get_roll_number_form
+# #   - active_loop: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: roll_number
+# #   - intent: inform
+# #     entities:
+# #     - roll_number: IMT2021062
+# #   - slot_was_set:
+# #     - roll_number: IMT2021062
+# #   - action: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_details
+# #   - slot_was_set:
+# #     - program: IMtech
+# #   - slot_was_set:
+# #     - name: Kushal Partani
+# #   - action: utter_submit_roll_number_form
+# #   - intent: professor_details
+# #   - action: get_prof_name_form
+# #   - active_loop: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: prof_name
+# #   - intent: nlu_fallback
+# #   - slot_was_set:
+# #     - prof_name: rc
+# #   - action: get_prof_name_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - action: get_expected_prof_name
+# #   - active_loop: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: expected_prof_name
+# #   - intent: inform
+# #     entities:
+# #     - expected_prof_name: Yes
+# #   - slot_was_set:
+# #     - expected_prof_name: Yes
+# #   - action: get_expected_prof_name
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_prof_name1
+# #   - slot_was_set:
+# #     - actual_prof_name: Chandrashekar Ramanathan
+# #   - slot_was_set:
+# #     - expected_prof_name: null
+# #   - intent: courses_offered_by_prof
+# #   - action: action_get_courses_details
+# #   - action: action_reset_prof_details
+# #   - slot_was_set:
+# #     - prof_name: null
+# #   - slot_was_set:
+# #     - actual_prof_name: null
+
+# # - story: interactive_story_1
+# #   steps:
+# #   - intent: greet
+# #   - action: utter_greet
+# #   - action: get_roll_number_form
+# #   - active_loop: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: roll_number
+# #   - intent: inform
+# #     entities:
+# #     - roll_number: IMT2021062
+# #   - slot_was_set:
+# #     - roll_number: IMT2021062
+# #   - action: get_roll_number_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_details
+# #   - slot_was_set:
+# #     - program: IMtech
+# #   - slot_was_set:
+# #     - name: Kushal Partani
+# #   - action: utter_submit_roll_number_form
+# #   - intent: register_new_courses
+# #   - action: get_filteration_form
+# #   - active_loop: get_filteration_form
+# #   - slot_was_set:
+# #     - requested_slot: filteration_based
+# #   - intent: inform
+# #     entities:
+# #     - filteration_based: No
+# #   - slot_was_set:
+# #     - filteration_based: No
+# #   - action: get_filteration_form
+# #   - slot_was_set:
+# #     - requested_slot: null
+# #   - active_loop: null
+# #   - action: action_get_all_courses
 
 # - story: interactive_story_1
 #   steps:
@@ -154,319 +533,51 @@ stories:
 #   - slot_was_set:
 #     - name: Kushal Partani
 #   - action: utter_submit_roll_number_form
-#   - intent: professor_details
-#   - action: get_prof_name_form
-#   - active_loop: get_prof_name_form
+#   - intent: register_new_courses
+#   - action: utter_filterations
+#   - intent: filteration_required_based_on_difficulty
+#   - action: get_filter_type_difficulty_form
+#   - active_loop: get_filter_type_difficulty_form
 #   - slot_was_set:
-#     - requested_slot: prof_name
-#   - intent: nlu_fallback
-#   - slot_was_set:
-#     - prof_name: rc
-#   - action: get_prof_name_form
-#   - slot_was_set:
-#     - requested_slot: null
-#   - active_loop: null
-#   - action: action_get_prof_name1
-#   - action: get_expected_prof_name
-#   - active_loop: get_expected_prof_name
-#   - slot_was_set:
-#     - requested_slot: expected_prof_name
+#     - requested_slot: filter_type_difficulty
 #   - intent: inform
 #     entities:
-#     - expected_prof_name: Yes
+#     - filter_type_difficulty: Intermediate
 #   - slot_was_set:
-#     - expected_prof_name: Yes
-#   - action: get_expected_prof_name
+#     - filter_type_difficulty: Intermediate
+#   - action: get_filter_type_difficulty_form
 #   - slot_was_set:
 #     - requested_slot: null
 #   - active_loop: null
-#   - action: action_get_prof_name1
+#   - action: action_get_filtered_courses_difficulty
+#   - action: get_more_filterations_domain_form
+#   - active_loop: get_more_filterations_domain_form
 #   - slot_was_set:
-#     - actual_prof_name: Chandrashekar Ramanathan
+#     - filter_type_difficulty: Intermediate
 #   - slot_was_set:
-#     - expected_prof_name: null
-#   - intent: professor_details
-#   - action: action_get_about_details
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - action: get_roll_number_form
-  - active_loop: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: roll_number
-  - intent: inform
-    entities:
-    - roll_number: IMT2021062
-  - slot_was_set:
-    - roll_number: IMT2021062
-  - action: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_details
-  - slot_was_set:
-    - program: IMtech
-  - slot_was_set:
-    - name: Kushal Partani
-  - action: utter_submit_roll_number_form
-  - intent: professor_details
-  - action: get_prof_name_form
-  - active_loop: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: prof_name
-  - intent: greet
-  - slot_was_set:
-    - prof_name: mk
-  - action: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - action: get_expected_prof_name
-  - active_loop: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: expected_prof_name
-  - intent: inform
-    entities:
-    - expected_prof_name: Yes
-  - slot_was_set:
-    - expected_prof_name: Yes
-  - action: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Manisha Kulkarni
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: professor_details
-  - action: action_get_about_details
-  - slot_was_set:
-    - actual_prof_name: null
-  - action: action_default_fallback
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Manisha Kulkarni
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: professor_details
-  - action: action_get_about_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
-  - action: action_default_fallback
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Manisha Kulkarni
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: professor_details
-  - action: action_get_about_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
-  - intent: professor_details
-  - action: get_prof_name_form
-  - active_loop: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: prof_name
-  - intent: nlu_fallback
-  - slot_was_set:
-    - prof_name: rc
-  - action: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - action: get_expected_prof_name
-  - active_loop: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: expected_prof_name
-  - intent: inform
-    entities:
-    - expected_prof_name: Yes
-  - slot_was_set:
-    - expected_prof_name: Yes
-  - action: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Chandrashekar Ramanathan
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: professor_details
-  - action: action_get_about_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
-  - intent: goodbye
-  - action: utter_goodbye
-  - action: action_restart
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - action: get_roll_number_form
-  - active_loop: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: roll_number
-  - intent: inform
-    entities:
-    - roll_number: IMT2021062
-  - slot_was_set:
-    - roll_number: IMT2021062
-  - action: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_details
-  - slot_was_set:
-    - program: IMtech
-  - slot_was_set:
-    - name: Kushal Partani
-  - action: utter_submit_roll_number_form
-  - intent: professor_details
-  - action: get_prof_name_form
-  - active_loop: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: prof_name
-  - intent: greet
-  - slot_was_set:
-    - prof_name: mk
-  - action: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - action: get_expected_prof_name
-  - active_loop: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: expected_prof_name
-  - intent: inform
-    entities:
-    - expected_prof_name: Yes
-  - slot_was_set:
-    - expected_prof_name: Yes
-  - action: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Manisha Kulkarni
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: courses_offered_by_prof
-  - action: action_get_courses_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
-  - intent: professor_details
-  - action: get_prof_name_form
-  - active_loop: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: prof_name
-  - intent: nlu_fallback
-  - slot_was_set:
-    - prof_name: rc
-  - action: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - action: get_expected_prof_name
-  - active_loop: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: expected_prof_name
-  - intent: inform
-    entities:
-    - expected_prof_name: Yes
-  - slot_was_set:
-    - expected_prof_name: Yes
-  - action: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Chandrashekar Ramanathan
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: professor_details
-  - action: action_get_about_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - action: get_roll_number_form
-  - active_loop: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: roll_number
-  - intent: inform
-    entities:
-    - roll_number: IMT2021062
-  - slot_was_set:
-    - roll_number: IMT2021062
-  - action: get_roll_number_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_details
-  - slot_was_set:
-    - program: IMtech
-  - slot_was_set:
-    - name: Kushal Partani
-  - action: utter_submit_roll_number_form
-  - intent: professor_details
-  - action: get_prof_name_form
-  - active_loop: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: prof_name
-  - intent: nlu_fallback
-  - slot_was_set:
-    - prof_name: rc
-  - action: get_prof_name_form
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - action: get_expected_prof_name
-  - active_loop: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: expected_prof_name
-  - intent: inform
-    entities:
-    - expected_prof_name: Yes
-  - slot_was_set:
-    - expected_prof_name: Yes
-  - action: get_expected_prof_name
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: action_get_prof_name1
-  - slot_was_set:
-    - actual_prof_name: Chandrashekar Ramanathan
-  - slot_was_set:
-    - expected_prof_name: null
-  - intent: courses_offered_by_prof
-  - action: action_get_courses_details
-  - action: action_reset_prof_details
-  - slot_was_set:
-    - prof_name: null
-  - slot_was_set:
-    - actual_prof_name: null
+#     - requested_slot: filter_more_domain
+#   - intent: inform
+#     entities:
+#     - filter_more_domain: Yes
+#   - slot_was_set:
+#     - filter_more_domain: Yes
+#   - action: get_more_filterations_domain_form
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: get_filter_type_domain_form
+#   - active_loop: get_filter_type_domain_form
+#   - slot_was_set:
+#     - filter_more_domain: Yes
+#   - slot_was_set:
+#     - requested_slot: filter_type_domain
+#   - intent: inform
+#     entities:
+#     - filter_type_domain: AIML
+#   - slot_was_set:
+#     - filter_type_domain: AIML
+#   - action: get_filter_type_domain_form
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: action_get_filtered_courses_domain

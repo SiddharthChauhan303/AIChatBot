@@ -18,16 +18,17 @@ intents:
 - register_new_courses
 entities:
 - roll_number
-- expected_prof_name
-- filter_type_domain
 - filter_type_difficulty
-- program
-- filter_more_difficulties
+- filter_type_domain
 - filter_more_domain
+- filteration_based
+- expected_prof_name
+- program
+- filter_more_difficulty
 - actual_prof_name
 - name
 - prof_details
-- filteration_based
+- no_filteration
 forms:
   get_filteration_form:
     required_slots:
@@ -46,7 +47,7 @@ forms:
     - filter_type_difficulty
   get_more_filterations_difficulty_form:
     required_slots:
-    - filter_more_difficulties
+    - filter_more_difficulty
   get_more_filterations_domain_form:
     required_slots:
     - filter_more_domain
@@ -95,10 +96,10 @@ slots:
     initial_value: null
     influence_conversation: false
     values:
-    - Artificial Intelligence
-    - Cyber Security
+    - AIML
+    - DT
     - VLSI
-    - Computer Networking
+    - NC
     - TSCD
     mappings:
     - type: from_entity
@@ -124,7 +125,7 @@ slots:
     mappings:
     - type: from_entity
       entity: filter_more_domain
-  filter_more_difficulties:
+  filter_more_difficulty:
     type: rasa.shared.core.slots.CategoricalSlot
     initial_value: null
     influence_conversation: false
@@ -133,7 +134,7 @@ slots:
     - No
     mappings:
     - type: from_entity
-      entity: filter_more_difficulties
+      entity: filter_more_difficulty
   expected_prof_name:
     type: rasa.shared.core.slots.CategoricalSlot
     initial_value: null
@@ -159,12 +160,22 @@ slots:
     initial_value: null
     influence_conversation: false
     values:
-    - No 
-    - Domain 
-    - Difficulty 
+    - No
+    - Domain
+    - Difficulty
     mappings:
     - type: from_entity
       entity: filteration_based
+  no_filteration:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    influence_conversation: false
+    values:
+    - Yes
+    - No
+    mappings:
+    - type: from_entity
+      entity: no_filteration
 responses:
   utter_what_do_you_want:
   - text: What can I do for you {name}?
@@ -185,25 +196,18 @@ responses:
   - text: Bye
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
-  utter_ask_filteration_based:
-  - buttons:
-    - payload: /inform{{"filteration_based":"No"}}
-      title: No filteration
-    - payload: /inform{{"filteration_based":"Domain"}}
-      title: Domain based
-    - payload: /inform{{"filteration_based":"Difficulty"}}
-      title: Difficulty based
-    text: Do you want any kind of filtaration?
+  utter_filterations:
+  - text: Do you want any kind of filtaration?
   utter_ask_filter_type_domain:
   - buttons:
-    - payload: /inform{{"filter_type_domain":"Artificial Intelligence"}}
+    - payload: /inform{{"filter_type_domain":"AIML"}}
       title: AI and ML
     - payload: /inform{{"filter_type_domain":"VLSI"}}
       title: VLSI
-    - payload: /inform{{"filter_type_domain":"Computer Networking"}}
+    - payload: /inform{{"filter_type_domain":"NC"}}
       title: Computer Networking
-    - payload: /inform{{"filter_type_domain":"Cyber Security"}}
-      title: Cyber Security
+    - payload: /inform{{"filter_type_domain":"DT"}}
+      title: Digital Society
     - payload: /inform{{"filter_type_domain":"TSCD"}}
       title: TSCD
     text: Select any domain?
@@ -223,6 +227,13 @@ responses:
     - payload: /inform{{"filter_more_domain":"No"}}
       title: no
     text: Do you want to filter more on domain?
+  utter_ask_filter_more_difficulty:
+  - buttons:
+    - payload: /inform{{"filter_more_difficulty":"Yes"}}
+      title: yes
+    - payload: /inform{{"filter_more_difficulty":"No"}}
+      title: no
+    text: Do you want to filter more on difficuty?
   utter_ask_expected_prof_name:
   - buttons:
     - payload: /inform{{"expected_prof_name":"Yes"}}
@@ -236,16 +247,19 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 actions:
-- utter_submit_roll_number_form
-- action_reset_prof_details
-- action_get_details
 - utter_greet
+- action_get_details
+- utter_submit_roll_number_form
+- action_get_filtered_courses_difficulty
+- utter_filterations
+- action_get_filtered_courses_domain
+- action_get_all_courses
+- action_reset_prof_details
 - action_get_courses_details
 - action_get_prof_name1
 - action_get_about_details
 - utter_goodbye
-- action_get_filtered_courses_domain
 - utter_register_new_courses
-- action_get_filtered_courses_difficulty
-- action_get_all_courses
 - action_remove_prof_name
+- action_check_domain
+- action_check_difficulty

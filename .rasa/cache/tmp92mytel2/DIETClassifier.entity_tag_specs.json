@@ -1,0 +1,28 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-prof_name",
+      "2": "I-prof_name",
+      "3": "L-prof_name",
+      "4": "U-prof_name",
+      "5": "B-roll_number",
+      "6": "I-roll_number",
+      "7": "L-roll_number",
+      "8": "U-roll_number",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-prof_name": 1,
+      "I-prof_name": 2,
+      "L-prof_name": 3,
+      "U-prof_name": 4,
+      "B-roll_number": 5,
+      "I-roll_number": 6,
+      "L-roll_number": 7,
+      "U-roll_number": 8,
+      "O": 0
+    },
+    "num_tags": 9
+  }
+]
