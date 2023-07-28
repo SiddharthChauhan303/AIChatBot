@@ -184,3 +184,39 @@ rules:
   steps:
   - action: action_reset_prof_details
   - action: action_listen
+
+
+- rule: Confirm some courses 1
+  condition:
+  - slot_was_set:
+    - filter_type_domain
+  steps:
+  - intent: confirm_course
+  - action: get_confirm_course
+  - active_loop: get_confirm_course
+
+- rule: Confirm some courses
+  condition:
+  - slot_was_set:
+    - filter_type_domain
+  steps:
+  - intent: confirm_course
+  - action: get_confirm_course
+  - active_loop: get_confirm_course
+
+- rule: Submit confirm course form
+  condition:
+  - active_loop: get_confirm_course
+  steps:
+  - action: get_confirm_course
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_confirm_course
+  - action: utter_confirm_any_other_course
+
+
+- rule: Show all the confirmed courses
+  steps:
+  - intent: no_remaining_course_to_confirm
+  - action: action_show_all_confirmed_courses

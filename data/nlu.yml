@@ -38,15 +38,15 @@ nlu:
     - of course
     - that sounds good
     - correct
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+# - intent: deny
+#   examples: |
+#     - no
+#     - n
+#     - never
+#     - I don't think so
+#     - don't like that
+#     - no way
+#     - not really
 - intent: mood_great
   examples: |
     - perfect
@@ -79,6 +79,7 @@ nlu:
     - extremly sad
     - so saad
     - so sad
+    - madar
 - intent: bot_challenge
   examples: |
     - are you a bot?
@@ -102,6 +103,28 @@ nlu:
     - i need to register for courses
     - new courses
     - Courses registration
+    - i would like to register for some course
+    - course registrations
+- intent: confirm_course
+  examples: |
+    - i would like to confirm some courses
+    - confirm courses
+    - confirm course Maths for ML
+    - confirm course ML
+    - i want to confirm
+    - courses select final
+    - courses confirmed
+    - i want to confirm courses
+    - i want to confirm course
+- intent:  no_remaining_course_to_confirm
+  examples: |
+    - no 
+    - I dont think so
+    - no need to confirm any other course
+    - these courses are enough no need to confirm any other course
+    - no confirm 
+    - no need to confirm 
+    - thats enough
 - intent: inform
   examples: |
     - My roll number is [IMT2021062](roll_number)
@@ -118,6 +141,8 @@ nlu:
     - [IMT2021100](roll_number)
     - [imt2021062]{"entity": "roll_number", "value": "IMT2021062"}
     - [IMT2021062](roll_number)
+    - DT 205
+    - HSS 102
 - intent: no_filters_required
   examples: |
     - I need no filters.
@@ -154,6 +179,7 @@ nlu:
     - I need some filters to choose for courses
     - domain based filteration
     - domain
+    - domain based
 - intent: filteration_required_based_on_difficulty
   examples: |
     - Show me beginner-level courses.

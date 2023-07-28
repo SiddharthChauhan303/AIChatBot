@@ -183,12 +183,12 @@ class ActionGetFilteredCoursesBasedOnDifficulty(Action):
             if (prog==0):
                 courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details")
             else:
-                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program ='{prog}' or program='3' ")
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program in ('{prog}', '3')")
         
             if (prog==0):
                 courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details")
             else:
-                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program ='{prog}' or program='3' ")
+                courses=dbc.ReturnQueryAllCourses(f"SELECT course_name,course_code,faculty_name,faculty_code from course_details where difficulty='{diff}'and program in ('{prog}', '3')")
         course_name=[]
         course_code=[]
         faculty_name=[]
@@ -345,3 +345,51 @@ class CustomActionCheckDomain(Action):
             return [FollowupAction("action_listen")]
         else:
             return []
+            
+class ActionConfirmCourse(Action):
+    def name(self) -> Text:
+        return "action_confirm_course"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:   
+        code=tracker.get_slot("course_code")
+        roll=tracker.get_slot("roll_number")
+        query=f"SELECT course_code from course_details where course_code= '{code}'"
+        courses=dbc.ReturnQueryAllCourses(query)
+        query2=f"INSERT into registration_details values ('{roll}','{code}')"
+        if courses:
+            dbc.ExecuteQuery(query2)
+            dispatcher.utter_message(f"Thank you for registering for course {code}")
+        else:
+            dispatcher.utter_message("You have entered an invalid course code. Please try again!!")
+        
+        return[SlotSet("course_code",None)]
+class ActionDisplayAllCourses(Action):
+    def name(self) -> Text:
+        return "action_show_all_confirmed_courses"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict]:   
+        roll=tracker.get_slot("roll_number")
+        query=f"SELECT course_code, course_name, faculty_code, faculty_name from course_details where course_code in (SELECT course_code from registration_details where rollnumber= '{roll}')"
+        courses=dbc.ReturnQueryAllCourses(query)
+        course_name=[]
+        course_code=[]
+        faculty_name=[]
+        faculty_code=[]
+        for i in range (len(courses)):
+            course_name.append(courses[i][1])
+            course_code.append(courses[i][0]) 
+            faculty_name.append(courses[i][3])
+            faculty_code.append(courses[i][2]) ##duplicate courses
+        dispatcher.utter_message("Your applied courses are :")
+        for i in range (len(courses)):
+            dispatcher.utter_message(f"{i+1}.{course_name[i]}  -  {course_code[i]}, Taught by Prof {faculty_name[i]}, ({faculty_code[i]})")

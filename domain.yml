@@ -3,6 +3,7 @@ intents:
 - about_prof_details
 - affirm
 - bot_challenge
+- confirm_course
 - courses_offered_by_prof
 - deny
 - filteration_required_based_on_difficulty
@@ -16,19 +17,21 @@ intents:
 - no_filters_required
 - professor_details
 - register_new_courses
+- no_remaining_course_to_confirm
 entities:
+- filter_more_difficulty
 - roll_number
-- filter_type_difficulty
 - filter_type_domain
+- filter_type_difficulty
 - filter_more_domain
 - filteration_based
 - expected_prof_name
 - program
-- filter_more_difficulty
 - actual_prof_name
 - name
 - prof_details
 - no_filteration
+- course_code
 forms:
   get_filteration_form:
     required_slots:
@@ -54,6 +57,9 @@ forms:
   get_expected_prof_name:
     required_slots:
     - expected_prof_name
+  get_confirm_course:
+    required_slots:
+    - course_code
 slots:
   prof_name:
     type: text
@@ -64,6 +70,15 @@ slots:
       conditions:
       - active_loop: get_prof_name_form
         requested_slot: prof_name
+  course_code:
+    type: text
+    initial_value: null
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: get_confirm_course
+        requested_slot: course_code
   actual_prof_name:
     type: text
     initial_value: null
@@ -197,7 +212,14 @@ responses:
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   utter_filterations:
-  - text: Do you want any kind of filtaration?
+  - buttons:
+    - payload: /no_filters_required
+      title: No filterations
+    - payload: /filteration_required_based_on_domain
+      title: Filteration based on domain
+    - payload: /filteration_required_based_on_difficulty
+      title: Filteration based on difficulty
+    text: Do you want any kind of filtaration?
   utter_ask_filter_type_domain:
   - buttons:
     - payload: /inform{{"filter_type_domain":"AIML"}}
@@ -243,16 +265,24 @@ responses:
     text: Select any one?
   utter_ask_prof_name:
   - text: Which prof information do you want?
+  utter_ask_course_code:
+  - text: Please write the course code of the course you want to confirm?
+  utter_confirm_any_other_course:
+  - text: Do you want to confirm any other course?
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 actions:
-- utter_greet
-- action_get_details
-- utter_submit_roll_number_form
-- action_get_filtered_courses_difficulty
 - utter_filterations
+- action_get_filtered_courses_difficulty
+- utter_greet
+- utter_submit_roll_number_form
+- action_check_difficulty
+- action_confirm_course
+- utter_confirm_any_other_course
+- action_get_details
 - action_get_filtered_courses_domain
+- action_check_domain
 - action_get_all_courses
 - action_reset_prof_details
 - action_get_courses_details
@@ -261,5 +291,4 @@ actions:
 - utter_goodbye
 - utter_register_new_courses
 - action_remove_prof_name
-- action_check_domain
-- action_check_difficulty
+- action_show_all_confirmed_courses
